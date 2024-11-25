@@ -1,0 +1,17 @@
+/*
+
+!.gitignore
+
+!nvim/
+!alacritty/
+!zsh/
+!tmux/
+!nitrogen/
+!i3/
+
+tmux/plugins
+zsh/scripts/.clj-kondo/
+zsh/scripts/.lsp/
+zsh/.secrets
+zsh/.histfile
+zsh/.zcompdump

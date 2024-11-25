@@ -1,0 +1,5 @@
+{:paths ["."]
+ :tasks
+  {tmux-sessionizer tmux-sessionizer/-main
+   edit-file        edit-file/-main}}
+
