@@ -15,7 +15,8 @@ local plugins = {
     event = "VimEnter",
     config = function()
       require('user.whichkey').setup()
-    end
+    end,
+    dependencies = "echasnovski/mini.nvim",
   },
   {
     "folke/todo-comments.nvim",
@@ -56,6 +57,21 @@ local plugins = {
     end
   },
   { 'williamboman/mason-lspconfig.nvim' },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    config = function()
+      require('mason-tool-installer').setup({
+        ensure_installed = {
+          'black',
+          'debugpy',
+          'flake8',
+          'isort',
+          'mypy',
+          'pylint',
+        }
+      })
+    end
+  },
   { 'nvim-lua/lsp-status.nvim' },
   --Snippets
   { "L3MON4D3/LuaSnip" },
@@ -81,7 +97,35 @@ local plugins = {
     dependencies = {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio"
-    }
+    },
+    config = function()
+      require("dapui").setup()
+      local dap, dapui = require("dap"), require("dapui")
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited.dapui_config = function()
+        dapui.close()
+      end
+    end
+  },
+  {
+    'mfussenegger/nvim-dap-python',
+    ft = 'python',
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+    },
+    config = function()
+      local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+      require("dap-python").setup(path)
+    end
   },
   { 'nvim-telescope/telescope-ui-select.nvim' },
   {
@@ -161,45 +205,45 @@ local plugins = {
       require("harpoon").setup()
     end
   },
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require('copilot').setup({
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          hide_during_completion = true,
-          debounce = 75,
-          keymap = {
-            accept = "<M-l>",
-            accept_word = false,
-            accept_line = false,
-            next = "<M-]>",
-            prev = "<M-[>",
-            dismiss = "<C-]>",
-          },
-        },
-      })
-    end,
-  },
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
-    dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
-    },
-    opts = {
-      debug = true, -- Enable debugging
-      -- See Configuration section for rest
-    },
-    -- See Commands section for default commands if you want to lazy load on them
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     require('copilot').setup({
+  --       suggestion = {
+  --         enabled = true,
+  --         auto_trigger = true,
+  --         hide_during_completion = true,
+  --         debounce = 75,
+  --         keymap = {
+  --           accept = "<M-l>",
+  --           accept_word = false,
+  --           accept_line = false,
+  --           next = "<M-]>",
+  --           prev = "<M-[>",
+  --           dismiss = "<C-]>",
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   "CopilotC-Nvim/CopilotChat.nvim",
+  --   branch = "canary",
+  --   dependencies = {
+  --     { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+  --     { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
+  --   },
+  --   opts = {
+  --     debug = true, -- Enable debugging
+  --     -- See Configuration section for rest
+  --   },
+  --   -- See Commands section for default commands if you want to lazy load on them
+  -- },
   { "mfussenegger/nvim-lint" },
   { "rshkarin/mason-nvim-lint" },
-  { 'akinsho/toggleterm.nvim', version = "*", config = true }
+  { "akinsho/toggleterm.nvim", version = "*", config = true }
 }
 
 return plugins

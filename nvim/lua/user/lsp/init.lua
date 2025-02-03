@@ -57,4 +57,8 @@ lspconfig.lua_ls.setup {
 
 lspconfig.clojure_lsp.setup {}
 
+lspconfig.pyright.setup {}
+
+lspconfig.wgsl_analyzer.setup {}
+
 return M

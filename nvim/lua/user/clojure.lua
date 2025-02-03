@@ -1,97 +1,34 @@
 local M = {}
 
 M.setup = function()
+  local g = vim.g
 
-local g = vim.g
+  -- Breifly highlight evaluated forms
+  g["conjure#highlight#enabled"] = true
 
--- Breifly highlight evaluated forms
-g["conjure#highlight#enabled"] = true
+  g["conjure#filetypes"] = { "clojure", "lua", "python" }
 
--- Only enable for clojure (so far anyway)
-g["conjure#filetypes"] = { "clojure", "lua" }
+  local wk = require("which-key")
 
-local wk = require("which-key")
+  local conjure_mapping = {
+    { "<LocalLeader>c",  group = "Connection",                           nowait = true,          remap = false },
+    { "<LocalLeader>e",  group = "Evaluate",                             nowait = true,          remap = false },
+    { "<LocalLeader>g",  group = "Go",                                   nowait = true,          remap = false },
+    { "<LocalLeader>l",  group = "REPL Log",                             nowait = true,          remap = false },
+    { "<LocalLeader>r",  group = "Reset REPL State",                     nowait = true,          remap = false },
+    { "<LocalLeader>s",  group = "REPL Session",                         nowait = true,          remap = false },
+    { "<LocalLeader>t",  group = "Test",                                 nowait = true,          remap = false },
+    { "<LocalLeader>v",  group = "Value",                                nowait = true,          remap = false },
+    { "<LocalLeader>j",  group = "Jackin",                               nowait = true,          remap = false },
+    { "<LocalLeader>x",  group = "Macro",                                nowait = true,          remap = false },
+    { "<LocalLeader>jj", '<cmd>:Clj! -A:dev:test<cr>',                   desc = "Jackin",        nowait = true, remap = false },
+    { "<LocalLeader>jx", '<cmd>:Start! npx shadow-cljs watch main<cr>',  desc = "ShadIn",        nowait = true, remap = false },
+    { "<LocalLeader>jf", '<cmd>:ConjureClientState default<cr>',         desc = "Clj State",     nowait = true, remap = false },
+    { "<LocalLeader>jc", '<cmd>:ConjureClientState shadow<cr>',          desc = "Shadow State",  nowait = true, remap = false },
+    { "<LocalLeader>jv", '<cmd>:ConjureShadowSelect main<cr>',           desc = "Shadow Select", nowait = true, remap = false },
+  }
 
--- Base Conjure Mappings
-wk.register({
-    l = {
-        name = "log",
-        s = "Open in new horizontal split window",
-        v = "Open in new vertical split window",
-        t = "Open in new tab",
-        q = "Close all visibal windows in current tab",
-        r = "Soft reset",
-        R = "Hard reset",
-    },
-    E = "Evaluate given motion",
-    e = {
-        name = "eval",
-        e = "Form under the cursor",
-        r = "Root form under the cursor",
-        w = "Word under the cursor",
-        c = {
-            name = "display as comment",
-            e = "Form under the cursor",
-            r = "Root form under the cursor",
-            w = "Word under the cursor",
-        },
-        ["!"] = "Replacing the Form under the cursor",
-        m = "Form at the given mark",
-        f = "File from disk",
-        b = "Current buffer",
-    },
-    g = {
-        name = "goto",
-        d = "Definition",
-    },
-}, { prefix = "<localleader>", })
-
-wk.register({
-    E = "Evaluate selection",
-}, { prefix = "<localleader>", mode = 'v' })
-
--- Clojure Nrepl Client Mappings
-wk.register({
-    c = {
-        name = "connection",
-        d = "Disconnect current",
-        f = "Connect",
-    },
-    ei = "Interrupt oldest",
-    v = {
-        name = "view",
-        e = "Last exception",
-        ["1"] = "Most recent evaluation",
-        ["2"] = "2nd most recent evaluation",
-        ["3"] = "3rd most recent evaluation",
-        s = "Source of symbol under cursor",
-    },
-    s = {
-        name = "session",
-        c = "Clone",
-        f = "Create fresh",
-        q = "Close current",
-        Q = "Close all",
-        l = "List",
-        n = "Next",
-        p = "Previous",
-        s = "Prompt to select",
-    },
-    t = {
-        name = "test",
-        a = "Run all loaded tests",
-        n = "Run tests in namespace",
-        N = "Run tests in testing namespace",
-        c = "Run under cursor",
-    },
-    r = {
-        name = "refresh",
-        r = "Changed namespaces",
-        a = "All, even unchanged",
-        c = "Clear refresh cache",
-    },
-}, { prefix = "<localleader>", })
-
+  wk.add(conjure_mapping)
 end
 
 return M

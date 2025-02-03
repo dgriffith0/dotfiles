@@ -11,18 +11,20 @@ if not lga_status_ok then
 end
 
 local options = {
+  defaults = {
+    mappings = {
+      n = {
+        ['<C-c>'] = require('telescope.actions').delete_buffer
+      }, -- n
+      i = {
+        ['<C-c>'] = require('telescope.actions').delete_buffer
+      } -- i
+    },
+  },
   pickers = {
     colorscheme = {
       enable_preview = true,
     }
-  },
-  mappings = {
-    n = {
-      ['<C-c>'] = require('telescope.actions').delete_buffer
-    },     -- n
-    i = {
-      ['<C-c>'] = require('telescope.actions').delete_buffer
-    }     -- i
   },
   extensions = {
     ["ui-select"] = {

@@ -5,15 +5,6 @@ if not status_ok then
   return
 end
 
-local opts = {
-  mode = "n",     -- NORMAL mode
-  prefix = "<leader>",
-  buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true,  -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true,  -- use `nowait` when creating keymaps
-}
-
 local mappings = {
   { "<leader>F",  "<cmd>Telescope live_grep theme=ivy<cr>",                                             desc = "Find Text",             nowait = true, remap = false },
   { "<leader>T",  group = "Treesitter",                                                                 nowait = true,                  remap = false },
@@ -49,7 +40,7 @@ local mappings = {
   { "<leader>gg", "<cmd>Neogit<cr>",                                                                    desc = "Neogit",                nowait = true, remap = false },
   { "<leader>gp", "<cmd>Neogit pull<cr>",                                                               desc = "Pull",                  nowait = true, remap = false },
   { "<leader>gt", "<cmd>Gitsigns toggle_current_line_blame<cr>",                                        desc = "Toggle Blame",          nowait = true, remap = false },
-  { "<leader>h",  "<cmd>nohlsearch<cr>",                                                                desc = "No Highlight",          nowait = true, remap = false },
+  { "<leader>h",  "<cmd>nohlsearch<cr>", icon = {icon = "", color="yellow"},                           desc = "No Highlight",          nowait = true, remap = false },
   { "<leader>j",  group = "Jump",                                                                       nowait = true,                  remap = false },
   { "<leader>j1", "<cmd>lua require'harpoon':list():select(1)<cr>",                                     desc = "1",                     nowait = true, remap = false },
   { "<leader>j2", "<cmd>lua require'harpoon':list():select(2)<cr>",                                     desc = "2",                     nowait = true, remap = false },
@@ -106,8 +97,6 @@ local mappings = {
   { "<leader>xt", "<cmd>TodoTrouble<cr>",                                                               desc = "Todos",                 nowait = true, remap = false },
   { "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>",                                             desc = "Workspace Diagnostics", nowait = true, remap = false },
   { "<leader>xx", "<cmd>Trouble<cr>",                                                                   desc = "Trouble",               nowait = true, remap = false },
-  { "<localleader>f", '<cmd>!janet -e "(import spork/fmt) (fmt/format-file \\"%\\")"<cr>',              desc = "Format",                nowait = true, remap = false },
-  { "<localleader>cn",'<cmd>:te janet -e "(import spork/netrepl) (netrepl/server)"<cr>',                   desc = "Netrepl",               nowait = true, remap = false },
 }
 
 M.setup = function()

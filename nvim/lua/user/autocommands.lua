@@ -53,6 +53,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
         { "<localleader>.", "<cmd>lua SlimeCargoTestFunction()<cr>", buffer = bufnr, desc = "Run Test at Cursor", remap = false },
         { "<localleader>b", ":SlimeSend1 cargo build<cr>",           buffer = bufnr, desc = "Build",              remap = false },
         { "<localleader>r", ":RustLsp runnables<cr>",                buffer = bufnr, desc = "Runnables",          remap = false },
+        { "<localleader>d", ":RustLsp debuggables<cr>",              buffer = bufnr, desc = "debuggables",        remap = false },
         { "<localleader>t", ":RustLsp testables<cr>",                buffer = bufnr, desc = "Testables",          remap = false },
         { "<localleader>u", ":SlimeSend1 cargo update<cr>",          buffer = bufnr, desc = "Update",             remap = false },
       }

@@ -1,7 +1,7 @@
 local M = {}
 
 local options = {
-  ensure_installed = { "lua", "rust", "wgsl_bevy"},
+  ensure_installed = { "lua", "rust", "wgsl_bevy", "wgsl"},
   sync_install = false,
   auto_install = true,
   highlight = {

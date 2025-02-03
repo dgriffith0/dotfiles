@@ -6,8 +6,6 @@ if not status_cmp_ok or cmp == nil then
 end
 local compare = require('cmp.config.compare')
 
-local WIDE_HEIGHT = 40
-
 local status_luasnip_ok, luasnip = pcall(require, "luasnip")
 if not status_luasnip_ok then
   return
@@ -101,12 +99,12 @@ local options = {
       scrolloff = 0,
       zindex = 999,
       col_offset = 0,
-      side_padding = 20,
+      -- side_padding = 20,
       scrollbar = true,
     },
     documentation = {
-      max_height = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines)),
-      max_width = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
+      -- max_height = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines)),
+      -- max_width = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
       zindex = 1000,
       border = { '', '', '', ' ', '', '', '', ' ' },
       winhighlight = 'FloatBorder:FloatBorder',
