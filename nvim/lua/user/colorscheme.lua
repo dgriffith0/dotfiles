@@ -2,7 +2,8 @@ local M = {}
 
 -- M.theme = 'tokyonight-night'
 -- M.theme = 'gruvbox'
-M.theme = 'catppuccin'
+-- M.theme = 'catppuccin'
+M.theme = 'cyberdream'
 
 vim.o.background = "dark"
 -- vim.o.background = "light"

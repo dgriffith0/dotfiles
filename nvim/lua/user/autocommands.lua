@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     wk.add(
       {
         { "<localleader>",  buffer = bufnr,                          group = "Rust", remap = false },
-        { "<localleader>,", ":SlimeSend1 cargo run<cr>",             buffer = bufnr, desc = "Run",                remap = false },
+        { "<localleader>,", "<cmd>:Start! cargo run<cr>",            buffer = bufnr, desc = "Run",                remap = false },
         { "<localleader>.", "<cmd>lua SlimeCargoTestFunction()<cr>", buffer = bufnr, desc = "Run Test at Cursor", remap = false },
         { "<localleader>b", ":SlimeSend1 cargo build<cr>",           buffer = bufnr, desc = "Build",              remap = false },
         { "<localleader>r", ":RustLsp runnables<cr>",                buffer = bufnr, desc = "Runnables",          remap = false },
@@ -59,4 +59,11 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
       }
     )
   end
+})
+
+vim.api.nvim_create_autocmd("BufNewFile", {
+  group = vim.api.nvim_create_augroup("conjure_log_disable_lsp", { clear = true }),
+  pattern = { "conjure-log-*" },
+  callback = function() vim.diagnostic.enable(false) end,
+  desc = "Conjure Log disable LSP diagnostics",
 })

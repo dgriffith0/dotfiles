@@ -1,4 +1,3 @@
-
 local skipped_servers = {
   "angularls",
   "ansiblels",
@@ -95,19 +94,26 @@ return {
   },
   buffer_mappings = {
     normal_mode = {
-      ["K"] = { vim.lsp.buf.hover, "Show hover" },
-      ["gd"] = { vim.lsp.buf.definition, "Goto Definition" },
-      ["gD"] = { vim.lsp.buf.declaration, "Goto declaration" },
+      { "K",  "<cmd>lua vim.lsp.buf.hover()<cr>",                                   desc = "Show Hover",          nowait = true, remap = false },
+      { "gd", "<cmd>lua vim.lsp.buf.definition()<cr>",                              desc = "Goto Definition",     nowait = true, remap = false },
+      { "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>",                             desc = "Goto Declaration",    nowait = true, remap = false },
+      { "gr", "<cmd>lua require('telescope.builtin').lsp_references<cr>",           desc = "Goto References",     nowait = true, remap = false },
+      { "gI", "<cmd>lua vim.lsp.buf.implementation()<cr>",                          desc = "Goto Implementation", nowait = true, remap = false },
+      { "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>",                          desc = "Show Signature Help", nowait = true, remap = false },
+      { "gp", "<cmd>function() require('user.lsp.peek').Peek 'definition' end<cr>", desc = "Peek Definition",     nowait = true, remap = false },
+      -- ["K"] = { vim.lsp.buf.hover, "Show hover" },
+      -- ["gd"] = { vim.lsp.buf.definition, "Goto Definition" },
+      -- ["gD"] = { vim.lsp.buf.declaration, "Goto declaration" },
       -- ["gr"] = { vim.lsp.buf.references, "Goto references" },
-      ["gr"] = {  require('telescope.builtin').lsp_references, "Goto references" },
-      ["gI"] = { vim.lsp.buf.implementation, "Goto Implementation" },
-      ["gs"] = { vim.lsp.buf.signature_help, "show signature help" },
-      ["gp"] = {
-        function()
-          require("user.lsp.peek").Peek "definition"
-        end,
-        "Peek definition",
-      },
+      -- ["gr"] = { require('telescope.builtin').lsp_references, "Goto references" },
+      -- ["gI"] = { vim.lsp.buf.implementation, "Goto Implementation" },
+      -- ["gs"] = { vim.lsp.buf.signature_help, "show signature help" },
+      -- ["gp"] = {
+      --   function()
+      --     require("user.lsp.peek").Peek "definition"
+      --   end,
+      --   "Peek definition",
+      -- },
       ["gl"] = {
         function()
           local config = require('config').diagnostics.float

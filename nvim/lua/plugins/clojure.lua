@@ -1,14 +1,14 @@
 return {
   {
     "Olical/conjure",
-    event = "BufEnter *.clj,*.edn,*.lua,*.janet,*.py",
+    event = "BufEnter *.clj,*.cljs,*.cljc,*.edn,*.lua,*.janet,*.py",
     config = function()
       require('user.clojure').setup()
     end
   },
   {
     "julienvincent/nvim-paredit",
-    event = "BufEnter *.clj,*.edn",
+    event = "BufEnter *.clj,*.cljc,*.cljs,*.edn",
     config = function()
       require("nvim-paredit").setup()
     end

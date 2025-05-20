@@ -5,6 +5,11 @@ if not ok then
   return
 end
 
+local status_ok, wk = pcall(require, "which-key")
+if not status_ok then
+  return
+end
+
 local function add_lsp_buffer_keybindings(bufnr)
   local mappings = {
     normal_mode = "n",
@@ -12,13 +17,9 @@ local function add_lsp_buffer_keybindings(bufnr)
     visual_mode = "v",
   }
 
-  local status_ok, wk = pcall(require, "which-key")
-  if not status_ok then
-    return
-  end
 
   for mode_name, mode_char in pairs(mappings) do
-    wk.register(require('user.lsp.config').buffer_mappings[mode_name], { mode = mode_char, buffer = bufnr })
+    wk.add(require('user.lsp.config').buffer_mappings[mode_name], { mode = mode_char, buffer = bufnr })
   end
 end
 
@@ -29,6 +30,19 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+
+local mappings = {
+  { "K",  "<cmd>lua vim.lsp.buf.hover()<cr>",                                   desc = "Show Hover",          nowait = true, remap = false },
+  { "gd", "<cmd>lua vim.lsp.buf.definition()<cr>",                              desc = "Goto Definition",     nowait = true, remap = false },
+  { "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>",                             desc = "Goto Declaration",    nowait = true, remap = false },
+  { "gr", "<cmd>lua require('telescope.builtin').lsp_references<cr>",           desc = "Goto References",     nowait = true, remap = false },
+  { "gI", "<cmd>lua vim.lsp.buf.implementation()<cr>",                          desc = "Goto Implementation", nowait = true, remap = false },
+  { "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>",                          desc = "Show Signature Help", nowait = true, remap = false },
+  { "gp", "<cmd>function() require('user.lsp.peek').Peek 'definition' end<cr>", desc = "Peek Definition",     nowait = true, remap = false },
+}
+
+wk.add(mappings)
 
 M.common_on_attach = function(client, bufnr)
   -- vim.lsp.inlay_hint.enable(true)
@@ -60,5 +74,7 @@ lspconfig.clojure_lsp.setup {}
 lspconfig.pyright.setup {}
 
 lspconfig.wgsl_analyzer.setup {}
+
+lspconfig.terraformls.setup {}
 
 return M
