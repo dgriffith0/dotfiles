@@ -8,6 +8,7 @@
 !tmux/
 !nitrogen/
 !i3/
+!aerospace
 
 tmux/plugins
 zsh/scripts/.clj-kondo/
