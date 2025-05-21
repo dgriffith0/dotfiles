@@ -1,8 +1,9 @@
 general.import = [
   #"~/.config/alacritty/catppuccin-latte.toml"
   #"~/.config/alacritty/catppuccin-frappe.toml"
-  "~/.config/alacritty/catppuccin-macchiato.toml"
-  #"/home/dang/.config/alacritty/catppuccin-mocha.toml"
+  #"~/.config/alacritty/catppuccin-macchiato.toml"
+  "~/.config/alacritty/cyberdream.toml"
+  #"~/.config/alacritty/cyberdream-light.toml"
 ]
 [env]
 TERM = "xterm-256color"
@@ -11,19 +12,19 @@ TERM = "xterm-256color"
 size = 14
 
 [font.bold]
-family = "JetBrainsMono Nerd Font"
+family = "CamingoCode"
 style = "Bold"
 
 [font.bold_italic]
-family = "JetBrainsMono Nerd Font"
+family = "CamingoCode"
 style = "Bold Italic"
 
 [font.italic]
-family = "JetBrainsMono Nerd Font"
+family = "CamingoCode"
 style = "Italic"
 
 [font.normal]
-family = "JetBrainsMono Nerd Font"
+family = "CamingoCode"
 style = "Regular"
 
 [keyboard]

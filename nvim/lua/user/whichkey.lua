@@ -102,6 +102,17 @@ local mappings = {
   { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todos", nowait = true, remap = false },
   { "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", desc = "Workspace Diagnostics", nowait = true, remap = false },
   { "<leader>xx", "<cmd>Trouble<cr>", desc = "Trouble", nowait = true, remap = false },
+  { "<leader>c", desc = "CopilotChat", nowait = true, remap = false },
+  { "<leader>co", "<cmd>CopilotChatOpen<cr>", desc = "Open", nowait = true, remap = false },
+  { "<leader>cq", "<cmd>CopilotChatClose<cr>", desc = "Close", nowait = true, remap = false },
+  { "<leader>cr", "<cmd>CopilotChatReset<cr>", desc = "Reset", nowait = true, remap = false },
+  { "<leader>cs", "<cmd>CopilotChatSend<cr>", desc = "Send Selection", nowait = true, remap = false },
+  { "<leader>ch", "<cmd>CopilotChatHelp<cr>", desc = "Help", nowait = true, remap = false },
+  { "<leader>cc", "<cmd>CopilotChatToggle<cr>", desc = "Toggle", nowait = true, remap = false },
+  { "<leader>cl", "<cmd>CopilotChatClear<cr>", desc = "Clear", nowait = true, remap = false },
+  { "<leader>ce", "<cmd>CopilotChatExplain<cr>", desc = "Explain Code", nowait = true, remap = false },
+  { "<leader>cf", "<cmd>CopilotChatFix<cr>", desc = "Fix Code", nowait = true, remap = false },
+  { "<leader>cd", "<cmd>CopilotChatDoc<cr>", desc = "Generate Doc", nowait = true, remap = false },
 }
 
 M.setup = function()

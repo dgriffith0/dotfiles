@@ -116,18 +116,6 @@ local plugins = {
       end
     end
   },
-  {
-    'mfussenegger/nvim-dap-python',
-    ft = 'python',
-    dependencies = {
-      "mfussenegger/nvim-dap",
-      "rcarriga/nvim-dap-ui",
-    },
-    config = function()
-      local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-      require("dap-python").setup(path)
-    end
-  },
   { 'nvim-telescope/telescope-ui-select.nvim' },
   {
     "folke/trouble.nvim",
@@ -139,31 +127,10 @@ local plugins = {
   { 'rcarriga/nvim-notify' },
   {
     "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    version = "*", 
     config = function()
       require("nvim-surround").setup(
-      -- Configuration here, or leave empty to use defaults
       )
-    end
-  },
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function() vim.fn["mkdp#util#install"]() end,
-  },
-  {
-    'jpalardy/vim-slime',
-    event = "VeryLazy",
-    init = function()
-      vim.g.slime_target = "tmux"
-      vim.g.slime_paste_file = vim.fn.expand("$HOME/.slime_paste")
-      vim.g.slime_bracketed_paste = 1
-      vim.g.slime_default_config = {
-        socket_name = vim.fn.get(vim.fn.split(vim.env.TMUX, ","), 0),
-        target_pane = ":.1",
-      }
-      vim.g.slime_dont_ask_default = 1
     end
   },
   {
@@ -173,24 +140,9 @@ local plugins = {
       -- add any options here
     },
     dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     }
-  },
-  {
-    "NeogitOrg/neogit",
-    event = "BufRead",
-    dependencies = {
-      "nvim-lua/plenary.nvim",         -- required
-      "sindrets/diffview.nvim",        -- optional - Diff integration
-      -- Only one of these is needed, not both.
-      "nvim-telescope/telescope.nvim", -- optional
-    },
-    config = true
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -212,6 +164,18 @@ local plugins = {
     "scottmckendry/cyberdream.nvim",
     lazy = false,
     priority = 1000,
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    },
+    build = "make tiktoken", -- Only on MacOS or Linux
+    opts = {
+      -- See Configuration section for options
+    },
+    -- See Commands section for default commands if you want to lazy load on them
   }
   -- FORMATTER ALTERNATIVE
   -- {
