@@ -12,7 +12,8 @@ local plugins = {
   },
   {
     "folke/which-key.nvim",
-    event = "VimEnter",
+    -- event = "VimEnter",
+    lazy = false,
     config = function()
       require('user.whichkey').setup()
     end,
@@ -176,7 +177,8 @@ local plugins = {
       -- See Configuration section for options
     },
     -- See Commands section for default commands if you want to lazy load on them
-  }
+  },
+  {'akinsho/toggleterm.nvim', version = "*", config = true}
   -- FORMATTER ALTERNATIVE
   -- {
   --   'stevearc/conform.nvim',

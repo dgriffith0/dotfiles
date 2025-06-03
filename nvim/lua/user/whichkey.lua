@@ -5,6 +5,29 @@ if not status_ok then
   return
 end
 
+local Terminal = require('toggleterm.terminal').Terminal
+local lazygit  = Terminal:new({
+  cmd = "lazygit",
+  dir = "git_dir",
+  direction = "float",
+  float_opts = {
+    border = "double",
+  },
+  -- function to run on opening the terminal
+  on_open = function(term)
+    vim.cmd("startinsert!")
+    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+  end,
+  -- function to run on closing the terminal
+  on_close = function(term)
+    vim.cmd("startinsert!")
+  end,
+})
+
+function _lazygit_toggle()
+  lazygit:toggle()
+end
+
 local mappings = {
   { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text", nowait = true, remap = false },
   { "<leader>T", group = "Treesitter", nowait = true, remap = false },
@@ -32,14 +55,15 @@ local mappings = {
   { "<leader>du", "<cmd>lua require'dap'.step_out()<cr>", desc = "Step Out", nowait = true, remap = false },
   { "<leader>e", "<cmd>Explore<cr>", desc = "File Explorer", nowait = true, remap = false },
   { "<leader>f", "<cmd>lua require('user.custom-finders').find_from_project()<cr>", desc = "Find Files", nowait = true, remap = false },
-  { "<leader>g", group = "Git", nowait = true, remap = false },
-  { "<leader>gP", "<cmd>Neogit push<cr>", desc = "Push", nowait = true, remap = false },
-  { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch", nowait = true, remap = false },
-  { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Commit", nowait = true, remap = false },
-  { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diff View", nowait = true, remap = false },
-  { "<leader>gg", "<cmd>Neogit kind=floating<cr>", desc = "Neogit", nowait = true, remap = false },
-  { "<leader>gp", "<cmd>Neogit pull<cr>", desc = "Pull", nowait = true, remap = false },
-  { "<leader>gt", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle Blame", nowait = true, remap = false },
+  -- { "<leader>g", group = "Git", nowait = true, remap = false },
+  { "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", desc = "Git", nowait = true, remap = false, silent = true },
+  -- { "<leader>gP", "<cmd>Neogit push<cr>", desc = "Push", nowait = true, remap = false },
+  -- { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch", nowait = true, remap = false },
+  -- { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Commit", nowait = true, remap = false },
+  -- { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diff View", nowait = true, remap = false },
+  -- { "<leader>gg", "<cmd>Neogit kind=floating<cr>", desc = "Neogit", nowait = true, remap = false },
+  -- { "<leader>gp", "<cmd>Neogit pull<cr>", desc = "Pull", nowait = true, remap = false },
+  -- { "<leader>gt", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle Blame", nowait = true, remap = false },
   { "<leader>h", "<cmd>nohlsearch<cr>", icon = { icon = "", color = "yellow" }, desc = "No Highlight", nowait = true, remap = false },
   { "<leader>j", group = "Jump", nowait = true, remap = false },
   { "<leader>j1", "<cmd>lua require'harpoon':list():select(1)<cr>", desc = "1", nowait = true, remap = false },
@@ -55,13 +79,11 @@ local mappings = {
   { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Info", nowait = true, remap = false },
   { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols", nowait = true, remap = false },
   { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action", nowait = true, remap = false },
-  -- { "<leader>ld", "<cmd>Telescope lsp_document_diagnostics<cr>", desc = "Document Diagnostics", nowait = true, remap = false },
   { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Goto Definition", nowait = true, remap = false },
   { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Goto Declaration", nowait = true, remap = false },
   { "<leader>le", "<cmd>Telescope quickfix<cr>", desc = "Telescope Quickfix", nowait = true, remap = false },
   { "<leader>lf", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", desc = "Format", nowait = true, remap = false },
   { "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Hover", nowait = true, remap = false },
-  -- { "<leader>lf", function() require("conform").format({ async = true }) end, desc = "Format" },
   { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info", nowait = true, remap = false },
   { "<leader>lj", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", desc = "Next Diagnostic", nowait = true, remap = false },
   { "<leader>lk", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic", nowait = true, remap = false },
@@ -80,11 +102,6 @@ local mappings = {
   { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Find Help", nowait = true, remap = false },
   { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps", nowait = true, remap = false },
   { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", nowait = true, remap = false },
-  { "<leader>t", group = "Terminal", nowait = true, remap = false },
-  { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float", nowait = true, remap = false },
-  { "<leader>th", "<cmd>ToggleTerm size=50 direction=horizontal<cr>", desc = "Horizontal", nowait = true, remap = false },
-  { "<leader>tt", "<cmd>ToggleTermToggleAll<cr>", desc = "Toggle All", nowait = true, remap = false },
-  { "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical", nowait = true, remap = false },
   { "<leader>v", group = "Vim", nowait = true, remap = false },
   { "<leader>vL", "<cmd>lua vim.lsp.set_log_level('debug')<cr>", desc = "Log Level Debug", nowait = true, remap = false },
   { "<leader>vc", "<cmd>lua require('user.custom-finders').find_config_files()<cr>", desc = "Configs", nowait = true, remap = false },
